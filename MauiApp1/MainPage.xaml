@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.MainPage">
+    <VerticalStackLayout Padding="20" Spacing="10">
+        <!-- Search Form -->
+        <HorizontalStackLayout Spacing="10" VerticalOptions="Start">
+            <!-- Search TextBox -->
+            <Entry x:Name="txtSearch"
+                   Placeholder="Enter search text"
+                   HorizontalOptions="FillAndExpand"
+                   WidthRequest="200"/>
+
+            <!-- Start DatePicker -->
+            <DatePicker x:Name="dpStartDate"
+                        Date="{Binding StartDate, Mode=TwoWay}"
+                        Format="D"
+                        WidthRequest="150"/>
+
+            <!-- End DatePicker -->
+            <DatePicker x:Name="dpEndDate"
+                        Date="{Binding EndDate, Mode=TwoWay}"
+                        Format="D"
+                        WidthRequest="150"/>
+            
+            <!-- Search Options Radio Buttons -->
+            <StackLayout Orientation="Horizontal" Spacing="10" VerticalOptions="Center">
+                <RadioButton x:Name="rbtnOption1"
+                             Content="Option 1"
+                             GroupName="SearchOptions"/>
+                <RadioButton x:Name="rbtnOption2"
+                             Content="Option 2"
+                             GroupName="SearchOptions"/>
+            </StackLayout>
+
+            <!-- Search Button -->
+            <Button Text="Search"
+                    Clicked="OnSearchClicked"
+                    VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+
+        <!-- Search Results Table -->
+        <CollectionView x:Name="resultsCollectionView"
+                        ItemsSource="{Binding SearchResults}"
+                        BackgroundColor="White"
+                        Margin="0,10,0,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Borders for Columns -->
+                        <BoxView Color="Gray" Grid.Row="0" Grid.Column="0" WidthRequest="1" VerticalOptions="FillAndExpand"/>
+                        <BoxView Color="Gray" Grid.Row="0" Grid.Column="1" WidthRequest="1" VerticalOptions="FillAndExpand"/>
+                        <BoxView Color="Gray" Grid.Row="0" Grid.Column="2" WidthRequest="1" VerticalOptions="FillAndExpand"/>
+                        
+                        <!-- Data Cells -->
+                        <Label Text="{Binding Id}" Grid.Column="0" Padding="5"/>
+                        <Label Text="{Binding Name}" Grid.Column="1" Padding="5"/>
+                        <Label Text="{Binding Date}" Grid.Column="2" Padding="5"/>
+
+                        <!-- Bottom Border -->
+                        <BoxView Color="Gray" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
